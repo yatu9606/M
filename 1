@@ -1,0 +1,15 @@
+import pandas as pd  
+import matplotlib.pyplot as plt  
+from sklearn.datasets import fetch_california_housing  
+ 
+data = fetch_california_housing()  
+df = pd.DataFrame(data.data, columns=data.feature_names)  
+ 
+df.hist(figsize=(10,8))  
+df.plot(kind='box', subplots=True, layout=(2,4), figsize=(10,6))  
+ 
+plt.tight_layout()  
+plt.show()  
+ 
+print("Outlier (HouseAge > 99th percentile):") 
+print(df[df['HouseAge'] > df['HouseAge'].quantile(0.99)]) 
