@@ -1,0 +1,25 @@
+import pandas as pd
+
+# Create the DataFrame
+data = pd.DataFrame({
+    'weather': ['sunny', 'sunny', 'raniy', 'sunny'],
+    'temp': ['warm', 'warm', 'cold', 'warm'],
+    'humidity': ['normal', 'high', 'high', 'high'],
+    'playTennis': ['yes', 'yes', 'no', 'yes']
+})
+
+print("Training Data:\n", data, "\n")
+
+# Initialize hypothesis
+h = ['0'] * (len(data.columns) - 1)
+
+# Iterate through each row
+for i, row in data.iterrows():
+    if row['playTennis'].lower() == 'yes':
+        for j, col in enumerate(data.columns[:-1]):
+            if h[j] == '0':
+                h[j] = row[col]
+            elif h[j] != row[col]:
+                h[j] = '?'
+
+print("Final hypothesis:", h)
