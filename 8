@@ -1,0 +1,16 @@
+from sklearn.datasets import load_breast_cancer 
+from sklearn.model_selection import train_test_split 
+from sklearn.tree import DecisionTreeClassifier, plot_tree 
+import numpy as np 
+import matplotlib.pyplot as plt 
+ 
+X, y = load_breast_cancer(return_X_y=True) 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) 
+clf = DecisionTreeClassifier(max_depth=4, random_state=42)   
+clf.fit(X_train, y_train) 
+plot_tree(clf, max_depth=2, filled=True) 
+new_sample = np.array([X_test[0]]) 
+prediction = clf.predict(new_sample) 
+print("Prediction for new sample:", "Malignant" if prediction[0] == 0 else "Benign") 
+print("Accuracy: {:.2f}%".format(clf.score(X_test, y_test) * 100)) 
+plt.show()
